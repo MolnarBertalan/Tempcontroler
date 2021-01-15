@@ -3,7 +3,7 @@
 #include <PID_v1.h>
 
 struct MSG {
-  char Operand;
+  char Operator;
   char Value[22];  
 };
 
@@ -74,11 +74,11 @@ void StartServer(int &mod) {
 
 //Messaging-------------------------------------------------------------------------------
 
-void SendMessage(char Operand, char* Value){
-  Serial.print(Operand);
+void SendMessage(char Operator, char* Value){
+  Serial.print(Operator);
   Serial.print(':');
   Serial.println(Value);
-  client.println((String)Operand + ':' + Value);
+  client.println((String)Operator + ':' + Value);
   delay(100);}
 
 void GetMessage(){
@@ -97,16 +97,16 @@ void GetMessage(){
   
   Serial.println("Over");
   Serial.println(res);
-  message.Operand = res[0];
+  message.Operator = res[0];
   for (int i=2; i<=res.length();i++){
   message.Value[i-2] = res[i];}
-  Serial.println(message.Operand);
+  Serial.println(message.Operator);
   Serial.println(message.Value);}
 
 void HandleMessage(){
   char buf[9];
   
-  switch (message.Operand) {
+  switch (message.Operator) {
     case 'M':
       Mode = atoi(message.Value);
       switch (Mode){
@@ -178,13 +178,13 @@ void HandleMessage(){
       SendMessage('T',buf);
       break;
     default:
-      SendMessage('R',"Operand not recognized");
+      SendMessage('R',"Operator not recognized");
       break;}
 }
 
 //HandleClient----------------------------------------------------------------------------
 
-void HandleClient(bool &IsConnected){
+void HandleClient(){
 
   if (!client.connected()){
     client = server.available();
@@ -270,12 +270,12 @@ void loop() {
       if (client.connected()){
         UpdateClient();}}}
   
-  HandleClient(IsConnected);
+  HandleClient();
   delay(100);
   if (client.available()){
     GetMessage();
     Serial.print("Message is: ");
-    Serial.print(message.Operand);
+    Serial.print(message.Operator);
     Serial.print(':');
     Serial.println(message.Value);
     HandleMessage();}
