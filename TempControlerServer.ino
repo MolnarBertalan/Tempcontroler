@@ -63,8 +63,8 @@ void StartServer(int &mod) {
     Broadcast(ssid,passkey);}
 
   if (mod == 1){
-    const char *ssid    = "********";
-    const char *passkey = "********";
+    const char *ssid    = "**********";
+    const char *passkey = "**********";
     Con(ssid,passkey);}
 
   Serial.println("Starting server...");
@@ -89,7 +89,6 @@ void GetMessage(){
     char s = client.read();
     if (s != '\n'){
       Serial.println(s);
-      //append(res,s);}
       res += s;}
     else{
       Exit = true;}
@@ -263,12 +262,12 @@ void setup(){
 void loop() {
   if (millis()/1000-t_measured > measureinterval){
     t_measured = millis()/1000;
-    ESP.wdtFeed();
     if (Mode != 0) {
       ReadInput();
       WriteOutput();
       if (client.connected()){
-        UpdateClient();}}}
+        UpdateClient();}}
+    ESP.wdtFeed();}
   
   HandleClient();
   delay(100);
