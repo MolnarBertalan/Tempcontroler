@@ -545,18 +545,18 @@ class Messenger:
                 return
 
     def SplitMessage(self,message):
-        self.operand = message[0]
+        self.operator = message[0]
         self.value = message[2:]
         self.HandleMessage()
 
     def HandleMessage(self):
-        func = self.switcher.get(self.operand,    lambda: print("Unknown Operand"))
+        func = self.switcher.get(self.operator,    lambda: print("Unknown operator"))
         func()
 
     def Run(self):
         global s
         global Exit
-        self.operand = ''
+        self.operator = ''
         self.value = ''
         
         while not Exit:
