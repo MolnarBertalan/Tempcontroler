@@ -242,6 +242,20 @@ void UpdateClient(){
 //Main------------------------------------------------------------------------------------
 
 void setup(){
+
+  pinMode(BUILTIN_LED, OUTPUT);
+  pinMode(D2,OUTPUT);
+  pinMode(A0,INPUT);
+
+  analogWriteFreq(20000);
+  
+  for (int i = 0; i <3; i++) {
+    delay(500);
+    digitalWrite(BUILTIN_LED, 1);
+    delay(500);
+    digitalWrite(BUILTIN_LED,0);
+  }
+
   int Ans;
   Serial.begin(115200);
   delay(5000);
@@ -255,6 +269,8 @@ void setup(){
     if (millis() > 20000){
       Ans = 0;}
   }while(Ans != 0 && Ans != 1);
+
+  digitalWrite(BUILTIN_LED, 1);
   
   StartServer(Ans);
 }
