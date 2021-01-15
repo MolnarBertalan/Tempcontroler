@@ -591,8 +591,11 @@ def RunEmailer(filename):
     print ("Starting Emailer")
     Mail = myMail("*sender_mail*","*sender_password")
     Mail.AddAttachment(filename)
-    Mail.Send("*reciever_mail*")
-    print("Email Sent")
+    try:
+        Mail.Send("*reciever_mail*")
+        print("Email Sent")
+    except:
+        print("could not send Email")
 
 global s 
 
