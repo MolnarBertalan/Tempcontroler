@@ -198,6 +198,9 @@ class mygraph:
     def Clear(self):
         self.InputPlot.clear()
         self.OutputPlot.clear()
+        self.InputList = [0 for x in range(n)]
+        self.OutputList = [0 for x in range(n)]
+        self.TimeList = [0 for x in range(n)]
         
 #--------------------------------------------------------------------------------------
 class Application(tk.Frame):
@@ -289,7 +292,7 @@ class Application(tk.Frame):
 
             self.InputLabel1= tk.Label (self, text="Input:", font=unifont)
             self.InputLabel2=tk.Label (self, textvariable= self.IntputlabelVar, font=unifont)
-            self.InputLabel3= tk.Label (self, text="Unit", font=unifont)
+            self.InputLabel3= tk.Label (self, text="/1023 Unit", font=unifont)
 
             self.InputLabel1.grid(row =1, column =4)
             self.InputLabel2.grid(row =1, column =5)
@@ -297,7 +300,7 @@ class Application(tk.Frame):
           
             self.OutputLabel1= tk.Label (self, text="Output:", font=unifont)
             self.OutputLabel2=tk.Label (self, textvariable= self.OutputlabelVar, font=unifont)
-            self.OutputLabel3= tk.Label (self, text="%", font=unifont)
+            self.OutputLabel3= tk.Label (self, text="/1023 Unit", font=unifont)
             
             self.OutputLabel1.grid(row =1, column =7)
             self.OutputLabel2.grid(row =1, column =8)
