@@ -112,13 +112,16 @@ void HandleMessage(){
         case 0:
           TPID.SetMode(MANUAL);
           Output = 0;
+          WriteOutput();
           break;
         case 1:
           TPID.SetMode(MANUAL);
           Output = 0;
+          WriteOutput();
           break;
         case 2:
           TPID.SetMode(AUTOMATIC);
+          WriteOutput();
           break;}
       break;
     case 'm':
@@ -203,6 +206,8 @@ void HandleClient(){
 //ReadInput-------------------------------------------------------------------------------
 void ReadInput(){
   Serial.println("reading");
+  digitalWrite(D2,LOW);
+  delay(5);
   Input = analogRead(A0);
   Input = analogRead(A0);
   Serial.println(Input);
@@ -217,9 +222,9 @@ void WriteOutput(){
     case 2:
       TPID.Compute();
       break;}
+  PWM = 0;    
   if (Output !=0){
     PWM = map(Output, 0, 1023, 266, 1023);}
-    
   analogWrite(D2, PWM);
 }
 
@@ -243,11 +248,13 @@ void UpdateClient(){
 
 void setup(){
 
+  Serial.begin(115200);
+  ESP.wdtDisable();
   pinMode(BUILTIN_LED, OUTPUT);
   pinMode(D2,OUTPUT);
   pinMode(A0,INPUT);
 
-  analogWriteFreq(20000);
+  analogWriteFreq(1000);
   
   for (int i = 0; i <3; i++) {
     delay(500);
@@ -256,9 +263,7 @@ void setup(){
     digitalWrite(BUILTIN_LED,0);
   }
 
-  int Ans;
-  Serial.begin(115200);
-  delay(5000);
+  int Ans = -1;
   Serial.println("Wifi mode? 0:AP 1:STA");
   
   do{
@@ -282,11 +287,11 @@ void loop() {
       ReadInput();
       WriteOutput();
       if (client.connected()){
-        UpdateClient();}}
-    ESP.wdtFeed();}
-  
+        UpdateClient();}}}
+        
+  ESP.wdtFeed();
   HandleClient();
-  delay(100);
+  delay(200);
   if (client.available()){
     GetMessage();
     Serial.print("Message is: ");
