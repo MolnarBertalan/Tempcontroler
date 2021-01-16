@@ -6,3 +6,6 @@ A hőmérséklet mérését egy ellenálláshőmérővel oldottam meg, míg a re
 Célom volt, hogy a vezérlőd PC-ről Wifi hálózaton keresztül tudjuk beállítani és monitorozni, ezért a szoftver két részre oszlik: Egy PC-n futtatható Kliensre és egy a mikrokontorlleren futó szerverre. A két rész között TCP/IP kommunikációt valósítottam meg.
 
 A felhasznált mikrokontroller egy NodeMCU v3 ami beépített WiFi modullal rendelkezik. 
+
+A szerver (TempcontrolerServer.ino) végzi a vezérlési folyamatot, illetve az adattovábbítást.
+Míg a Kliens (TempControlerClient.py) Az adatokat egy grafikonon vizualizálja, egy excel táblába menti, végül megfelelő beállítások mellett elküldi a megadott Email-címre.
