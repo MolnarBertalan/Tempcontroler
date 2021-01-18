@@ -198,10 +198,7 @@ class mygraph:
     def Clear(self):
         self.InputPlot.clear()
         self.OutputPlot.clear()
-        self.InputList = [0 for x in range(n)]
-        self.OutputList = [0 for x in range(n)]
-        self.TimeList = [0 for x in range(n)]
-        
+
 #--------------------------------------------------------------------------------------
 class Application(tk.Frame):
     
